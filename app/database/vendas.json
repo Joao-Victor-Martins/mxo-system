@@ -3,8 +3,7 @@
     "ID": "01",
     "LOJA": "ÓTICA DINIZ",
     "LOGO": "LogoDiniz",
-    "MES": "FEVEREIRO",
-    "ANO": "2025",
+    "DATA": "2025-02-01",
     "FORMAPAGAMENTO": {
       "DINHEIRO": 15000,
       "CARTAO": 500,
@@ -17,8 +16,7 @@
     "ID": "02",
     "LOJA": "ÓTICA OURO PRIME",
     "LOGO": "LogoPrime",
-    "MES": "FEVEREIRO",
-    "ANO": "2025",
+    "DATA": "2025-02-01",
     "FORMAPAGAMENTO": {
       "DINHEIRO": 3000,
       "CARTAO": 20000,
@@ -31,8 +29,7 @@
     "ID": "03",
     "LOJA": "ÓTICA OURO PAULISTA",
     "LOGO": "LogoPaulista",
-    "MES": "FEVEREIRO",
-    "ANO": "2025",
+    "DATA": "2025-02-01",
     "FORMAPAGAMENTO": {
       "DINHEIRO": 15000,
       "CARTAO": 5000,

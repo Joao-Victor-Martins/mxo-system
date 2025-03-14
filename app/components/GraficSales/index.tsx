@@ -31,10 +31,10 @@ ChartJS.register(
 export default function GraficSales() {
   const [lojaSelected, setLojaSelected] = useState<string>("All Business");
   const [logoSelected, setLogoSelected] = useState(LogoMXO);
-
+  const [dataSelecionada, setDataSelecionada] = useState("");
 
   function handleLojaChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    const loja = e.target.value as keyof typeof logos; // Garante que a chave está no tipo do objeto
+    const loja = e.target.value as keyof typeof logos;
     setLojaSelected(loja);
 
     const logos: Record<string, StaticImageData> = {
@@ -47,12 +47,29 @@ export default function GraficSales() {
     setLogoSelected(logos[loja] || LogoMXO);
   }
 
-  // ✅ Filtrar os dados pela loja selecionada
-  const vendasFiltradas = dataBaseVendas.filter(
-    (venda) => lojaSelected === "All Business" || venda.LOJA === lojaSelected
-  );
+  function handleDateChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setDataSelecionada(e.target.value);
+  }
 
-  // ✅ Somar os valores por forma de pagamento
+  // ✅ Extraindo mês e ano da data selecionada
+  const [anoSelecionado, mesSelecionado] = dataSelecionada.split("-") ?? [
+    "",
+    "",
+  ];
+
+  // ✅ Filtrando os dados pela loja e pela data selecionada
+  const vendasFiltradas = dataBaseVendas.filter((venda) => {
+    const [ano, mes] = venda.DATA.split("-"); // Supondo que DATA esteja no formato "YYYY-MM-DD"
+
+    const filtroLoja =
+      lojaSelected === "All Business" || venda.LOJA === lojaSelected;
+    const filtroData =
+      !dataSelecionada || (ano === anoSelecionado && mes === mesSelecionado);
+
+    return filtroLoja && filtroData;
+  });
+
+  // ✅ Agrupando valores por forma de pagamento
   const pagamentosAgrupados = vendasFiltradas.reduce((acc, venda) => {
     Object.entries(venda.FORMAPAGAMENTO).forEach(([forma, valor]) => {
       acc[forma] = (acc[forma] || 0) + valor;
@@ -61,8 +78,8 @@ export default function GraficSales() {
   }, {} as Record<string, number>);
 
   // ✅ Criar arrays para Chart.js
-  const labels = Object.keys(pagamentosAgrupados); // Formas de pagamento
-  const valores = Object.values(pagamentosAgrupados); // Valores totais
+  const labels = Object.keys(pagamentosAgrupados);
+  const valores = Object.values(pagamentosAgrupados);
 
   // ✅ Configuração dos dados do gráfico
   const data = {
@@ -70,13 +87,13 @@ export default function GraficSales() {
     datasets: [
       {
         label: lojaSelected,
-        data: valores, // Valores por forma de pagamento
+        data: valores,
         backgroundColor: [
-          "#FF6384",
+          "#32a852",
           "#36A2EB",
-          "#FFCE56",
-          "#4BC0C0",
-          "#9966FF",
+          "#35e6d4",
+          "#c90a0a",
+          "#f25824",
         ],
         borderColor: "black",
         borderWidth: 1,
@@ -85,30 +102,46 @@ export default function GraficSales() {
   };
 
   return (
-    <div className=" p-10 w-[800px] h-[400px]">
-      <Image className=" w-24 h-24" src={logoSelected} alt="Logos" />
-
-      <div className="flex flex-col w-64 bg-red-500">
-        {/* Botão para abrir/fechar */}
-        <label htmlFor="selectBusiness">Select a business:</label>
-        <select
-          id="selectBusiness"
-          name="selectBusiness"
-          onChange={handleLojaChange}
-        >
-          <option defaultValue={"All Business"} value="All Business">
-            All Business
-          </option>
-          {dataBaseVendas.map((loja) => (
-            <option key={loja.ID} value={loja.LOJA}>
-              {loja.LOJA}
+    <div className="flex flex-col gap-2.5 p-10 w-[800px] h-[400px]">
+      <div className="flex flex-row gap-4 bg-gray-300 p-3.5 rounded-3xl">
+        <Image className="w-24 h-24" src={logoSelected} alt="Logos" />
+        <div className="flex flex-col w-64 gap-3">
+          <label className="uppercase" htmlFor="selectBusiness">Select a business:</label>
+          <select
+            className="bg-white rounded-2xl p-5"
+            id="selectBusiness"
+            name="selectBusiness"
+            onChange={handleLojaChange}
+          >
+            <option defaultValue={"All Business"} value="All Business">
+              All Business
             </option>
-          ))}
-        </select>
+            {dataBaseVendas.map((loja) => (
+              <option key={loja.ID} value={loja.LOJA}>
+                {loja.LOJA}
+              </option>
+            ))}
+          </select>
+
+          {/* ✅ Campo de filtro por data */}
+          <input
+            className="bg-white rounded-2xl p-1"
+            placeholder="Data"
+            type="date"
+            id="date"
+            name="date"
+            value={dataSelecionada}
+            onChange={handleDateChange}
+          />
+        </div>
       </div>
 
-      <h1>Gráfico de Vendas</h1>
-      <Bar data={data} />
+      <div className="bg-gray-300 p-3.5 rounded-3xl">
+        <h2 className="text-center text-4xl uppercase font-semibold">
+          Gráfico de Vendas
+        </h2>
+        <Bar data={data} />
+      </div>
     </div>
   );
 }
