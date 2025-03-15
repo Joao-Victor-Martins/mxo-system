@@ -11,7 +11,6 @@ import {
 import { Bar } from "react-chartjs-2";
 import dataBaseVendas from "@/app/database/vendas.json";
 
-
 // ✅ Registrar os componentes necessários
 ChartJS.register(
   CategoryScale,
@@ -29,8 +28,6 @@ export default function GraficSales({
   lojaSelected: string;
   dataSelecionada: string;
 }) {
-
-
   // ✅ Extraindo mês e ano da data selecionada
   const [anoSelecionado, mesSelecionado] = dataSelecionada.split("-") ?? [
     "",
@@ -64,6 +61,13 @@ export default function GraficSales({
   // ✅ Configuração dos dados do gráfico
   const data = {
     labels: labels,
+    responsive: true,
+    maintainAspectRatio: false, // Permite que o gráfico se ajuste ao tamanho do contêiner
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
     datasets: [
       {
         label: lojaSelected,
@@ -82,7 +86,7 @@ export default function GraficSales({
   };
 
   return (
-    <div className="flex flex-col gap-2.5 p-10 w-[800px] h-[400px]">
+    <div className=" p-10 w-full h-full">
       <div className="bg-gray-300 p-3.5 rounded-3xl">
         <h2 className="text-center text-4xl uppercase font-semibold">
           Gráfico de Vendas
