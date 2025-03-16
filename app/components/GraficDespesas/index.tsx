@@ -9,7 +9,8 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import dataBaseReceitas from "@/app/database/receitas.json";
+
+import dataBaseDespesas from "@/app/database/despesas.json";
 
 // ✅ Registrar os componentes necessários
 ChartJS.register(
@@ -21,7 +22,7 @@ ChartJS.register(
   Legend
 );
 
-export function GraficReceitas({
+export function GraficDespesas({
   lojaSelected,
   dataSelecionada,
 }: {
@@ -35,11 +36,11 @@ export function GraficReceitas({
   ];
 
   // ✅ Filtrando os dados pela loja e pela data selecionada
-  const receitasFiltradas = dataBaseReceitas.filter((receita) => {
-    const [ano, mes] = receita.DATA.split("-"); // Supondo que DATA esteja no formato "YYYY-MM-DD"
+  const despesasFiltradas = dataBaseDespesas.filter((despesa) => {
+    const [ano, mes] = despesa.DATA.split("-"); // Supondo que DATA esteja no formato "YYYY-MM-DD"
 
     const filtroLoja =
-      lojaSelected === "ALL BUSINESS" || receita.LOJA === lojaSelected;
+      lojaSelected === "ALL BUSINESS" || despesa.LOJA === lojaSelected;
     const filtroData =
       !dataSelecionada || (ano === anoSelecionado && mes === mesSelecionado);
 
@@ -47,16 +48,16 @@ export function GraficReceitas({
   });
 
   // ✅ Agrupando valores por forma de pagamento
-  const pagamentosAgrupados = receitasFiltradas.reduce((acc, receita) => {
-    Object.entries(receita.FORMAPAGAMENTO).forEach(([forma, valor]) => {
+  const categoriasAgrupadas = despesasFiltradas.reduce((acc, despesa) => {
+    Object.entries(despesa.CATEGORIAS).forEach(([forma, valor]) => {
       acc[forma] = (acc[forma] || 0) + valor;
     });
     return acc;
   }, {} as Record<string, number>);
 
   // ✅ Criar arrays para Chart.js
-  const labels = Object.keys(pagamentosAgrupados);
-  const valores = Object.values(pagamentosAgrupados);
+  const labels = Object.keys(categoriasAgrupadas);
+  const valores = Object.values(categoriasAgrupadas);
 
   // ✅ Configuração dos dados do gráfico
   const data = {
@@ -73,10 +74,6 @@ export function GraficReceitas({
         label: lojaSelected,
         data: valores,
         backgroundColor: [
-          "#32a852",
-          "#36A2EB",
-          "#35e6d4",
-          "#c90a0a",
           "#f25824",
         ],
         borderColor: "black",
@@ -89,7 +86,7 @@ export function GraficReceitas({
     <div className="p-10 w-full h-full">
       <div className="bg-gray-300 p-3.5 rounded-3xl">
         <h2 className="text-center text-4xl uppercase font-semibold">
-          Gráfico de Receitas
+          Gráfico de Despesas
         </h2>
         <Bar data={data} />
       </div>

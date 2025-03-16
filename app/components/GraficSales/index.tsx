@@ -21,7 +21,7 @@ ChartJS.register(
   Legend
 );
 
-export default function GraficSales({
+export function GraficSales({
   lojaSelected,
   dataSelecionada,
 }: {

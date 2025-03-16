@@ -1,7 +1,8 @@
 "use client";
 import Image from "next/image";
-import GraphSales from "./components/GraficSales";
-import GraficReceitas from "./components/GraficReceitas";
+import { GraficSales } from "./components/GraficSales";
+import { GraficReceitas } from "./components/GraficReceitas";
+import { GraficDespesas } from "./components/GraficDespesas";
 import dataBaseVendas from "@/app/database/vendas.json";
 import LogoDiniz from "@/public/LOGO-DINIZ.png";
 import LogoMXO from "@/public/LOGO-MXO.png";
@@ -75,11 +76,17 @@ export default function Home() {
       </div>
 
       <div className="flex-col lg:flex flex-row gap-5 w-full">
-        <GraphSales
+        <GraficSales
           lojaSelected={lojaSelected}
           dataSelecionada={dataSelecionada}
         />
         <GraficReceitas
+          lojaSelected={lojaSelected}
+          dataSelecionada={dataSelecionada}
+        />
+      </div>
+      <div className="flex-col lg:flex flex-row gap-5 w-full">
+        <GraficDespesas
           lojaSelected={lojaSelected}
           dataSelecionada={dataSelecionada}
         />

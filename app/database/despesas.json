@@ -1,12 +1,35 @@
 [
-    {
-        "LOJA": "ÓTICA DINIZ",
-        "MÊS": "FEVEREIRO",
-        "ANO": "2025",
-        "IMPOSTOS": "20000",
-        "MÉDICOS": "10000",
-        "DESPESA DE CAIXA": "5000",
-        "FOLHA DE PAGAMENTO": "30000"
-
+  {
+    "ID": "01",
+    "LOJA": "ÓTICA DINIZ",
+    "DATA": "2025-02-01",
+    "CATEGORIAS": {
+      "IMPOSTOS": 15000,
+      "MÉDICOS": 5000,
+      "DESPESA DE CAIXA": 2000,
+      "FOLHA DE PAGAMENTO": 30000
     }
+  },
+  {
+    "ID": "02",
+    "LOJA": "ÓTICA OURO PRIME",
+    "DATA": "2025-02-01",
+    "CATEGORIAS": {
+      "IMPOSTOS": 15000,
+      "MÉDICOS": 5000,
+      "DESPESA DE CAIXA": 2000,
+      "FOLHA DE PAGAMENTO": 30000
+    }
+  },
+  {
+    "ID": "03",
+    "LOJA": "ÓTICA OURO PAULISTA",
+    "DATA": "2025-02-01",
+    "CATEGORIAS": {
+      "IMPOSTOS": 20000,
+      "MÉDICOS": 10000,
+      "DESPESA DE CAIXA": 5000,
+      "FOLHA DE PAGAMENTO": 30000
+    }
+  }
 ]

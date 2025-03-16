@@ -1,26 +1,33 @@
 [
     {
-        "LOJA": "ÓTICA DINIZ",
-        "MÊS": "FEVEREIRO",
-        "ANO": "2025",
-        "DINHEIRO": 1000,
-        "CARTÃO": 500,
-        "PIX": 2000
+      "ID": "01",
+      "LOJA": "ÓTICA DINIZ",
+      "DATA": "2025-02-01",
+      "FORMAPAGAMENTO": {
+        "DINHEIRO": 55371.59,
+        "CARTAO": 91850.25,
+        "PIX": 36040.99
+      }
     },
     {
-        "LOJA": "ÓTICA OURO PRIME",
-        "MÊS": "FEVEREIRO",
-        "ANO": "2025",
+      "ID": "02",
+      "LOJA": "ÓTICA OURO PRIME",
+      "DATA": "2025-02-01",
+      "FORMAPAGAMENTO": {
         "DINHEIRO": 3000,
-        "CARTÃO": 20000,
+        "CARTAO": 20000,
         "PIX": 2000
+      }
     },
     {
-        "LOJA": "ÓTICA OURO PAULISTA",
-        "MÊS": "FEVEREIRO",
-        "ANO": "2025",
+      "ID": "03",
+      "LOJA": "ÓTICA OURO PAULISTA",
+      "DATA": "2025-02-01",
+      "FORMAPAGAMENTO": {
         "DINHEIRO": 15000,
-        "CARTÃO": 5000,
+        "CARTAO": 5000,
         "PIX": 2000
+      }
     }
-]
+  ]
+  
